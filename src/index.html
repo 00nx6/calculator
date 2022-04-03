@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./script.js" defer></script>
+    <title>Calculator | Front End Mentor</title>
+</head>
+<body>
+    <div class="cont">
+        <section class="head">
+            <h1>calc</h1>
+            <div class="slider-cont">
+                <section class="theme-no">
+                    <label for="theme">1</label>
+                    <label for="theme">2</label>
+                    <label for="theme">3</label>
+                </section>
+                <section class="slider">
+                    <button type="menu" id="theme current-theme"></button>
+                    <button type="menu" id="theme"></button>
+                    <button type="menu" id="theme"></button>
+                </section>
+
+            </div>
+        </section>
+        <section class="bod">
+            <div class="displayCont">
+                <h3 class="currentValue"></h3>
+                <h2 class="display" id="display-num"></h2>
+            </div>
+            <div class="numpad" id="numpad">
+                <button class="calc-bttn">7</button>
+                <button class="calc-bttn">8</button>
+                <button class="calc-bttn">9</button>
+                <button class="calc-bttn_func">del</button>
+                <button class="calc-bttn">4</button>
+                <button class="calc-bttn">5</button>
+                <button class="calc-bttn">6</button>
+                <button class="calc-bttn_func">+</button>
+                <button class="calc-bttn">1</button>
+                <button class="calc-bttn">2</button>
+                <button class="calc-bttn">3</button>
+                <button class="calc-bttn_func">-</button>
+                <button class="calc-bttn">.</button>
+                <button class="calc-bttn">0</button>
+                <button class="calc-bttn_func">/</button>
+                <button class="calc-bttn_func">x</button>
+                <button class="calc-bttn_func reset_bttn" id="">reset</button>
+                <button class="calc-bttn_submit" id="submit">=</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
