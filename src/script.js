@@ -1,5 +1,6 @@
 // boiler template for how calculator stores info
-let numBuild = {
+
+let calcStore = {
     currentNumber : [
         
     ],
@@ -12,134 +13,90 @@ let numBuild = {
     default: 0,
     op: undefined
 };
-// getting html elements
-const numBttns = Array.from(document.querySelectorAll('.calc-bttn'));
-const funcBttns = Array.from(document.querySelectorAll('.calc-bttn_func'));
-const display = document.querySelector('.display')
-const currentWorkingValue = document.querySelector('.currentValue');
-const submit = document.getElementById('submit')
 
-// runs enter function
-submit.addEventListener('click', enter)
-// all function buttons should run operatorFind
-funcBttns.forEach(bttn => {
-    bttn.addEventListener('click', operatorFind);
-})
-// all number bttns should run the number constructor
+const numBttns = Array.from(document.querySelectorAll('.calc-bttn'))
+const funcBttns = Array.from(document.querySelectorAll('.calc-bttn_func'));
+const enter = document.getElementById('submit')
+const display = document.querySelector('.display')
+const currentWorkingValue = document.querySelector('.currentValue')
 numBttns.forEach(bttn => {
     bttn.addEventListener('click', numConstruct)
+});
+funcBttns.forEach(bttn => {
+    bttn.addEventListener('click', detOp)
 })
 
 function numConstruct() {
-    // pushes the current buttons inner text into an array
-    // then takes the numbers in there, joins them and turns them from string to number
-    numBuild.currentNumber.push(+this.innerText);
-    let num = numBuild.currentNumber.join('')
-    console.log(numBuild)
-    // runs displayUpdate with the current number that should be displayed
+    calcStore.currentNumber.push(+this.innerText) 
+    let num = calcStore.currentNumber.join('')
     displayUpdate(num)
 }
-// updates display
+
+function detOp() {
+    console.log(calcStore)
+    if (calcStore.currentNumber.length >= 1) calcStore.working.push(+calcStore.currentNumber.join(''))
+    if (calcStore.working.length == 2) op()
+    display.innerText = 0
+    calcStore.op = this.innerText
+    calcStore.currentNumber = []
+}
+
+function op() {
+    sum = 0
+    switch (calcStore.op) {
+        case '+':
+            calcStore.working.forEach(num => {
+                sum = sum + num
+            })
+            calcStore.working = []
+            calcStore.default = sum
+            calcStore.working.push(sum)
+            break;
+        case '-':
+            let sum = calcStore.working[0];
+            for (let i = 1; i < calcStore.working.length; i++ ) {
+              sum = sum - calcStore.working[i]
+            }
+            
+            calcStore.working = []
+            calcStore.default = sum
+            calcStore.working.push(sum)
+            break;
+        case '/':
+            calcStore.working.forEach(num => {
+                sum = sum / num
+            })
+
+            calcStore.working = []
+            calcStore.default = sum
+            calcStore.working.push(sum)
+            break;
+        case 'X':
+            calcStore.working.forEach(num => {
+                sum = sum * num
+            })
+
+            calcStore.working = []
+            calcStore.default = sum
+            calcStore.working.push(sum)
+            break;
+        default:
+            break;
+    }
+    currentWorkingValue.innerText = calcStore.default
+    displayUpdate(calcStore.default)
+}
+
 function displayUpdate(num) {
-    currentWorkingValue.innerText = num
     display.innerText = num
 }
 
-function operatorFind() {
-    // identifies operator
-    let operator = this.innerText
-    // adds the whole number + the operator at the end to toAction array
-    numBuild.toAction.push(+numBuild.currentNumber.join('') + operator)
-    // resets current number
-    numBuild.currentNumber = []
-    
-    operation()
+enter.addEventListener('click', () => {
+    calcStore.working.push(+calcStore.currentNumber.join(''))
+    op()
+
+})
+function reset() {
+    calcStore.op = undefined 
+    calcStore.currentNumber = []
 }
-
-function operation() {
-    // turns the to action value into an array
-    let val = Array.from(numBuild.toAction[0])
-    // determines operator and stores it in the boilerplate
-    numBuild.op = val[val.length-1]
-    // removes operator from number
-    val.pop()
-    val = +val.join('')
-    // stores number in working
-    numBuild.working.push(val)
-    
-    operationDetermine()
-}
-function operationDetermine() {
-    //current operation sum is stored as sum, 0 by default 
-    let sum = numBuild.default
-    // checks if theres a 2nd value to prevent errors
-        // determines current operator, runs the appropriate instructions 
-        // and then resets the working values
-    switch(numBuild.op) {
-        case'+':
-            numBuild.working.forEach((number) => {
-                sum = sum + number;
-            })
-            numBuild.default = sum
-            currentWorkingValue.innerText = sum
-            numBuild.toAction = []
-            numBuild.working = []
-            numBuild.currentNumber = []
-            break;
-        case '-':
-            
-            
-            for (let i = 1; i < numBuild.working.length; i++ ) {
-                sum = sum - numBuild.working[i]
-            }
-
-            numBuild.default = sum
-            currentWorkingValue.innerText = sum
-            numBuild.toAction = []
-            numBuild.working = []
-            numBuild.currentNumber = []
-            break;
-
-        case '/':
-            
-            
-            for (let i = 1; i < numBuild.working.length; i++ ) {
-                sum = sum / numBuild.working[i]
-            }
-            numBuild.default = sum
-            currentWorkingValue.innerText = sum
-            numBuild.toAction = []
-            numBuild.working = []
-            numBuild.currentNumber = []
-            break;
-        case 'X': 
-            
-                
-            for (let i = 1; i < numBuild.working.length; i++ ) {
-                sum = sum * numBuild.working[i]
-            }
-            numBuild.default = sum
-            currentWorkingValue.innerText = sum
-            numBuild.toAction = []
-            numBuild.working = []
-            numBuild.currentNumber = []
-            break;
-    }
-}
- 
-function enter() {
-    // pushes the values of currentNumber to working
-    numBuild.working.push(...numBuild.currentNumber)
-    // runs operationDetermine
-    operationDetermine()
-}
-
-// known bugs :
-/*
-    cant string multiple operations together
-    operators other than addition stopped working?
-
-    possible fixes:
-        reset numBuild.op
-
-*/
