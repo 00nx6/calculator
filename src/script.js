@@ -16,7 +16,7 @@ let numBuild = {
 const numBttns = Array.from(document.querySelectorAll('.calc-bttn'));
 const funcBttns = Array.from(document.querySelectorAll('.calc-bttn_func'));
 const display = document.querySelector('.display')
-const currentWorkingValue = document.querySelectorAll('.currentValue');
+const currentWorkingValue = document.querySelector('.currentValue');
 const submit = document.getElementById('submit')
 
 // runs enter function
@@ -41,7 +41,7 @@ function numConstruct() {
 }
 // updates display
 function displayUpdate(num) {
-
+    currentWorkingValue.innerText = num
     display.innerText = num
 }
 
@@ -73,63 +73,60 @@ function operationDetermine() {
     //current operation sum is stored as sum, 0 by default 
     let sum = numBuild.default
     // checks if theres a 2nd value to prevent errors
-    if (numBuild.working[1] != undefined) {
         // determines current operator, runs the appropriate instructions 
         // and then resets the working values
-        switch(numBuild.op) {
-            case'+':
-                numBuild.working.forEach((number) => {
-                    sum = sum + number;
-                })
-                numBuild.default = sum
-                currentWorkingValue.innerText = sum
-                numBuild.toAction = []
-                numBuild.working = []
-                numBuild.currentNumber = []
-                break;
-            case '-':
-                sum = numBuild.working[0]
-                
-                for (let i = 1; i < numBuild.working.length; i++ ) {
-                    sum = sum - numBuild.working[i]
-                }
+    switch(numBuild.op) {
+        case'+':
+            numBuild.working.forEach((number) => {
+                sum = sum + number;
+            })
+            numBuild.default = sum
+            currentWorkingValue.innerText = sum
+            numBuild.toAction = []
+            numBuild.working = []
+            numBuild.currentNumber = []
+            break;
+        case '-':
+            
+            
+            for (let i = 1; i < numBuild.working.length; i++ ) {
+                sum = sum - numBuild.working[i]
+            }
 
-                numBuild.default = sum
-                currentWorkingValue.innerText = sum
-                numBuild.toAction = []
-                numBuild.working = []
-                numBuild.currentNumber = []
-                break;
+            numBuild.default = sum
+            currentWorkingValue.innerText = sum
+            numBuild.toAction = []
+            numBuild.working = []
+            numBuild.currentNumber = []
+            break;
 
-            case '/':
-                sum = numBuild.working[0]
+        case '/':
+            
+            
+            for (let i = 1; i < numBuild.working.length; i++ ) {
+                sum = sum / numBuild.working[i]
+            }
+            numBuild.default = sum
+            currentWorkingValue.innerText = sum
+            numBuild.toAction = []
+            numBuild.working = []
+            numBuild.currentNumber = []
+            break;
+        case 'X': 
+            
                 
-                for (let i = 1; i < numBuild.working.length; i++ ) {
-                    sum = sum / numBuild.working[i]
-                }
-                numBuild.default = sum
-                currentWorkingValue.innerText = sum
-                numBuild.toAction = []
-                numBuild.working = []
-                numBuild.currentNumber = []
-                break;
-            case 'X': 
-                sum = numBuild.working[0]
-                    
-                for (let i = 1; i < numBuild.working.length; i++ ) {
-                    sum = sum * numBuild.working[i]
-                }
-                numBuild.default = sum
-                currentWorkingValue.innerText = sum
-                numBuild.toAction = []
-                numBuild.working = []
-                numBuild.currentNumber = []
-                break;
-        }
+            for (let i = 1; i < numBuild.working.length; i++ ) {
+                sum = sum * numBuild.working[i]
+            }
+            numBuild.default = sum
+            currentWorkingValue.innerText = sum
+            numBuild.toAction = []
+            numBuild.working = []
+            numBuild.currentNumber = []
+            break;
     }
- 
-    
 }
+ 
 function enter() {
     // pushes the values of currentNumber to working
     numBuild.working.push(...numBuild.currentNumber)
@@ -137,3 +134,12 @@ function enter() {
     operationDetermine()
 }
 
+// known bugs :
+/*
+    cant string multiple operations together
+    operators other than addition stopped working?
+
+    possible fixes:
+        reset numBuild.op
+
+*/
