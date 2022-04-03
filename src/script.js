@@ -1,5 +1,4 @@
 // boiler template for how calculator stores info
-
 let calcStore = {
     currentNumber : [
         
@@ -13,12 +12,14 @@ let calcStore = {
     default: 0,
     op: undefined
 };
-
-const numBttns = Array.from(document.querySelectorAll('.calc-bttn'))
+// getting the html elements
+const numBttns = Array.from(document.querySelectorAll('.calc-bttn'));
 const funcBttns = Array.from(document.querySelectorAll('.calc-bttn_func'));
-const enter = document.getElementById('submit')
-const display = document.querySelector('.display')
-const currentWorkingValue = document.querySelector('.currentValue')
+const enter = document.getElementById('submit');
+const display = document.querySelector('.display');
+const currentWorkingValue = document.querySelector('.currentValue');
+
+// adding event listeners for numbers when theyre clicked
 numBttns.forEach(bttn => {
     bttn.addEventListener('click', numConstruct)
 });
@@ -27,7 +28,9 @@ funcBttns.forEach(bttn => {
 })
 
 function numConstruct() {
-    calcStore.currentNumber.push(+this.innerText) 
+    console.log(calcStore)
+    // taking inner text from what ever number is clicked and pushing it into currentNumber
+    calcStore.currentNumber.push(+this.innerText);
     let num = calcStore.currentNumber.join('')
     displayUpdate(num)
 }
@@ -40,6 +43,7 @@ function detOp() {
     calcStore.op = this.innerText
     calcStore.currentNumber = []
 }
+
 
 function op() {
     sum = 0
@@ -97,6 +101,6 @@ enter.addEventListener('click', () => {
 
 })
 function reset() {
-    calcStore.op = undefined 
+    calcStore.op = undefined
     calcStore.currentNumber = []
 }
