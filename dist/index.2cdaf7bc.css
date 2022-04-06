@@ -1,0 +1,167 @@
+@import "https://fonts.googleapis.com/css2?family=Spartan:wght@700;900&display=swap";
+* {
+  box-sizing: border-box;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --main-bg: #3a4764;
+  --keypad-bg: #232c43;
+  --screen-bg: #182034;
+  --key-bg: #637097;
+  --key-shadow: #404e72;
+  --key-toggle: #d03f2f;
+  --key-toggle-shadow: #672922;
+  --toggle-shadow: #b4a597;
+  --letter-clr: #444b5a;
+  --main-font: "Spartan", sans-serif;
+}
+
+body {
+  background-color: var(--main-bg);
+  height: 100vh;
+  width: 100vw;
+  font-family: var(--main-font);
+  color: #f5f5f5;
+  font-weight: 900;
+  animation: animation 2s forwards;
+}
+
+.cont {
+  width: max-content;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.head {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.displayCont {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.display {
+  max-width: 22rem;
+  min-height: 70px;
+  text-align: right;
+  background-color: var(--screen-bg);
+  width: 100%;
+  border-radius: 1rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  font-size: 2rem;
+  overflow: hidden;
+}
+
+.currentValue {
+  text-align: right;
+  background-color: var(--screen-bg);
+  filter: opacity(.6);
+  min-height: 1.2rem;
+  border-radius: .6rem;
+  align-self: flex-end;
+  padding: .5rem;
+}
+
+.numpad {
+  background-color: var(--keypad-bg);
+  border-radius: 1rem;
+  grid-template-rows: repeat(5, 60px);
+  grid-template-columns: repeat(4, 80px);
+  padding: 1rem;
+  display: grid;
+}
+
+.calc-bttn {
+  box-shadow: 0 3px var(--key-shadow);
+  font-family: var(--main-font);
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  border-radius: .5rem;
+  margin: 5px;
+  font-size: 1.2rem;
+}
+
+.calc-bttn:active, .calc-bttn_func:active, .calc-bttn_submit:active {
+  transition: all .5ms ease-in-out forwards;
+  transform: translateY(3px);
+  box-shadow: 0 0 #0000;
+}
+
+.calc-bttn_func, .calc-bttn_op {
+  background-color: var(--key-bg);
+  box-shadow: 0 3px var(--key-shadow);
+  color: #fff;
+  font-family: var(--main-font);
+  cursor: pointer;
+  border: none;
+  border-radius: .5rem;
+  margin: 5px;
+  font-size: 1.2rem;
+}
+
+.calc-bttn_submit {
+  background-color: var(--key-toggle);
+  box-shadow: 0 3px var(--key-toggle-shadow);
+  color: #fff;
+  font-family: var(--main-font);
+  cursor: pointer;
+  border: none;
+  border-radius: .5rem;
+  grid-column: span 2 / 5;
+  margin: 5px;
+  font-size: 1.2rem;
+}
+
+.reset_bttn {
+  grid-column: span 2 / 3;
+}
+
+#theme {
+  display: none;
+}
+
+#current-theme {
+  display: block;
+}
+
+.slider-cont label {
+  margin: 5px;
+}
+
+.slider {
+  background-color: var(--screen-bg);
+  height: min-content;
+  width: 4.3rem;
+  height: 1.4rem;
+  border-radius: 1rem;
+  display: flex;
+}
+
+.slider button {
+  background-color: var(--key-toggle);
+  content: "";
+  border: none;
+  border-radius: 50%;
+  margin: 5px;
+  padding: 7px;
+}
+
+/*# sourceMappingURL=index.2cdaf7bc.css.map */

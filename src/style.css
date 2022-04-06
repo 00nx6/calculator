@@ -108,7 +108,8 @@ body {
     transform: translateY(3px);
 
 }
-.calc-bttn_func {
+.calc-bttn_func,
+.calc-bttn_op {
     background-color: var(--key-bg);
     border: none;
     box-shadow: 0 3px var(--key-shadow);

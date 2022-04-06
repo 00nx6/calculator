@@ -18,7 +18,12 @@ const funcBttns = Array.from(document.querySelectorAll('.calc-bttn_func'));
 const enter = document.getElementById('submit');
 const display = document.querySelector('.display');
 const currentWorkingValue = document.querySelector('.currentValue');
-
+const del = document.querySelector('.calc-bttn_op')
+del.addEventListener('click', function() {
+    calcStore.currentNumber.pop()
+    let num = calcStore.currentNumber
+    displayUpdate(num)
+})
 // adding event listeners for numbers when theyre clicked
 numBttns.forEach(bttn => {
     bttn.addEventListener('click', numConstruct)
@@ -36,8 +41,9 @@ function numConstruct() {
 }
 
 function detOp() {
-    console.log(calcStore)
-    if (calcStore.currentNumber.length >= 1) calcStore.working.push(+calcStore.currentNumber.join(''))
+    // just make it do nothing if operator is the same
+    if (calcStore.op == this.innerText) detOp()
+    if (calcStore.currentNumber.length >= 1) {calcStore.working.push(+calcStore.currentNumber.join(''))}
     if (calcStore.working.length == 2) op()
     display.innerText = 0
     calcStore.op = this.innerText
@@ -47,6 +53,7 @@ function detOp() {
 
 function op() {
     sum = 0
+    num = 0
     switch (calcStore.op) {
         case '+':
             calcStore.working.forEach(num => {
@@ -57,7 +64,7 @@ function op() {
             calcStore.working.push(sum)
             break;
         case '-':
-            let sum = calcStore.working[0];
+            sum = calcStore.working[0];
             for (let i = 1; i < calcStore.working.length; i++ ) {
               sum = sum - calcStore.working[i]
             }
@@ -67,19 +74,20 @@ function op() {
             calcStore.working.push(sum)
             break;
         case '/':
-            calcStore.working.forEach(num => {
-                sum = sum / num
-            })
-
+            sum = calcStore.working[0]
+            for(let i = 1; i < calcStore.working.length; i++) {
+                console.log(sum, calcStore.working[i])
+                sum = sum / calcStore.working[i]
+            }
             calcStore.working = []
             calcStore.default = sum
             calcStore.working.push(sum)
             break;
         case 'X':
-            calcStore.working.forEach(num => {
-                sum = sum * num
-            })
-
+            sum = calcStore.working[0]
+            for(let i = 1; i < calcStore.working.length; i++) {
+                sum = sum * calcStore.working[i]
+            }
             calcStore.working = []
             calcStore.default = sum
             calcStore.working.push(sum)
