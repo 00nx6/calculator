@@ -11,7 +11,7 @@ let calcStore = {
     ],
     default: 0,
     op: undefined
-};
+}; 
 // getting the html elements
 const numBttns = Array.from(document.querySelectorAll('.calc-bttn'));
 const funcBttns = Array.from(document.querySelectorAll('.calc-bttn_func'));
